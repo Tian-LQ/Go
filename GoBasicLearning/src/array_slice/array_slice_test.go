@@ -1,6 +1,9 @@
 package array_slice
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestArrayInit(t *testing.T) {
 	var arr [3]int
@@ -65,4 +68,16 @@ func TestSliceShareMemory(t *testing.T) {
 	t.Log("after change summer[0]:")
 	t.Logf("summer => len: %d, cap: %d, val: %v\n", len(summer), cap(summer), summer)
 	t.Logf("year => len: %d, cap: %d, val: %v\n", len(year), cap(year), year)
+}
+
+func TestSlice(t *testing.T) {
+	slice := make([]int, 0, 4)
+	fmt.Printf("slice's address: %p, slice's len: %d, slice's cap: %d\n", slice, len(slice), cap(slice))
+	slice = append(slice, 1)
+	slice = append(slice, 2)
+	slice = append(slice, 3)
+	slice = append(slice, 4)
+	fmt.Printf("slice's address: %p, slice's len: %d, slice's cap: %d\n", slice, len(slice), cap(slice))
+	slice = append(slice, 5)
+	fmt.Printf("slice's address: %p, slice's len: %d, slice's cap: %d\n", slice, len(slice), cap(slice))
 }
