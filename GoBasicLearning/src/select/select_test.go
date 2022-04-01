@@ -32,3 +32,28 @@ func TestAsyncService(t *testing.T) {
 		t.Error("time out")
 	}
 }
+
+func TestSelectAndFor(t *testing.T) {
+	intChan := make(chan int, 10)
+	for i := 0; i < 10; i++ {
+		intChan <- i
+	}
+	close(intChan)
+	syncChan := make(chan struct{}, 1)
+	// 这里之所以用标签Loop是因为break在select中只能跳出当前select语句块
+	go func() {
+	Loop:
+		for {
+			select {
+			case e, ok := <-intChan:
+				if !ok {
+					fmt.Println("End.")
+					break Loop
+				}
+				fmt.Printf("Received: %v\n", e)
+			}
+		}
+		syncChan <- struct{}{}
+	}()
+	<-syncChan
+}

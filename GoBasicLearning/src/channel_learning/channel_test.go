@@ -2,6 +2,7 @@ package channel_learning
 
 import (
 	"fmt"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -252,4 +253,73 @@ func TestChannelNil(t *testing.T) {
 	//ch <- 1
 	//val := <-ch
 	//t.Log(val)
+}
+
+func TestChannelAndChannelBuffer(t *testing.T) {
+	// 发送间隔时间
+	sendingInterval := time.Second
+	// 接收间隔时间
+	receptionInterval := time.Second * 2
+	// 采用非缓存通道时，其收发元素的速度总是与慢的那一方持平
+	//intChan := make(chan int, 0)
+	// 采用缓存通道时，接收元素的速度与发送元素的速度相互独立
+	intChan := make(chan int, 5)
+
+	// 发送Goroutine
+	go func() {
+		var ts0, ts1 int64
+		for i := 0; i < 5; i++ {
+			intChan <- i
+			ts1 = time.Now().Unix()
+			if ts0 == 0 {
+				fmt.Println("Sent:", i)
+			} else {
+				fmt.Printf("Send: %d [interval: %d s]\n", i, ts1-ts0)
+			}
+			ts0 = time.Now().Unix()
+			// 模拟发送元素的速度：1个/s
+			time.Sleep(sendingInterval)
+		}
+		close(intChan)
+	}()
+
+	var ts0, ts1 int64
+Loop:
+	for {
+		select {
+		case v, ok := <-intChan:
+			if !ok {
+				break Loop
+			}
+			ts1 = time.Now().Unix()
+			if ts0 == 0 {
+				fmt.Println("Received:", v)
+			} else {
+				fmt.Printf("Received: %d [interval: %d]\n", v, ts1-ts0)
+			}
+		}
+		ts0 = time.Now().Unix()
+		// 模拟接收元素的速度：1个/s
+		time.Sleep(receptionInterval)
+	}
+	fmt.Println("End.")
+}
+
+func TestSelected(t *testing.T) {
+	t.Log("moment 1:", runtime.NumGoroutine())
+	c := make(chan int)
+	go func() {
+		time.Sleep(time.Second * 2)
+		c <- 10086
+	}()
+	t.Log("moment 2:", runtime.NumGoroutine())
+	select {
+	case i := <-c:
+		fmt.Println("Received form c:", i)
+	case <-time.After(time.Second):
+		t.Log("moment 3:", runtime.NumGoroutine())
+		fmt.Println(<-c)
+		t.Log("moment 4:", runtime.NumGoroutine())
+	}
+	t.Log("moment 5:", runtime.NumGoroutine())
 }
