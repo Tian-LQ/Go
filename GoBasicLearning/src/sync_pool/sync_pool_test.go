@@ -13,12 +13,13 @@ func TestSyncPool(t *testing.T) {
 			return 100
 		},
 	}
-	v := pool.Get().(int)
-	fmt.Println(v)
+	var ok bool
+	v, ok := pool.Get().(int)
+	fmt.Println(v, ok)
 	pool.Put(314)
 	//runtime.GC() // GC会清除sync.pool中缓存的对象
-	v1, _ := pool.Get().(int)
-	fmt.Println(v1)
+	v1, ok := pool.Get().(int)
+	fmt.Println(v1, ok)
 }
 
 func TestSyncPoolInMultiGoroutine(t *testing.T) {

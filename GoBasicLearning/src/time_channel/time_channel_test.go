@@ -84,7 +84,7 @@ func TestTimeAfterFunc(t *testing.T) {
 	fmt.Printf("timer stop: %v.\n", timer.Stop())
 }
 
-func TestTicker(t *testing.T) {
+func Test(t *testing.T) {
 	intChan := make(chan int, 1)
 	ticker := time.NewTicker(time.Second)
 	go func() {
