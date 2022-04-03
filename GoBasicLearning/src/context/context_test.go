@@ -32,3 +32,15 @@ func TestCancel(t *testing.T) {
 	cancel()
 	time.Sleep(time.Second * 1)
 }
+
+func TestContext(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*500)
+	defer cancel()
+
+	select {
+	case <-time.After(time.Millisecond * 200):
+		fmt.Println("overslept")
+	case <-ctx.Done():
+		fmt.Println(ctx.Err())
+	}
+}
