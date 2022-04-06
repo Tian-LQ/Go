@@ -1,4 +1,4 @@
-package errgroup
+package main
 
 import (
 	"context"
