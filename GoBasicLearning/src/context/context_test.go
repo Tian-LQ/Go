@@ -38,7 +38,7 @@ func TestContext(t *testing.T) {
 	defer cancel()
 
 	select {
-	case <-time.After(time.Millisecond * 200):
+	case <-time.After(time.Millisecond * 800):
 		fmt.Println("overslept")
 	case <-ctx.Done():
 		fmt.Println(ctx.Err())

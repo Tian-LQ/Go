@@ -234,19 +234,25 @@ func TestRemoveElement(t *testing.T) {
 func nextPermutation(nums []int) {
 	n := len(nums)
 	i := n - 2
+	// 从后往前，先找到第一个升序对[i, i+1] (那么说明由[i+1, len-1]必定为降序)
 	for i >= 0 && nums[i] >= nums[i+1] {
 		i--
 	}
 	if i >= 0 {
 		j := n - 1
+		// 从后往前找到第一个大于nums[i]的元素nums[j]
 		for j >= 0 && nums[i] >= nums[j] {
 			j--
 		}
+		// 交换nums[i]和nums[j]
 		nums[i], nums[j] = nums[j], nums[i]
 	}
+	// 此时[i+1, len-1]依然为降序
+	// 反转区间[i+1, len-1]，使其变为升序
 	reverse(nums[i+1:])
 }
 
+// 反转切片
 func reverse(a []int) {
 	for i, n := 0, len(a); i < n/2; i++ {
 		a[i], a[n-1-i] = a[n-1-i], a[i]
@@ -257,4 +263,51 @@ func TestNextPermutation(t *testing.T) {
 	nums := []int{4, 3, 1, 2}
 	nextPermutation(nums)
 	t.Log(nums)
+}
+
+// 在排序数组中查找元素的第一个和最后一个位置
+func searchRange(nums []int, target int) []int {
+	return []int{findFirst(nums, 0, len(nums)-1, target), findLast(nums, 0, len(nums)-1, target)}
+}
+
+func findFirst(nums []int, left int, right int, target int) int {
+	if left > right {
+		return -1
+	}
+	i := (left + right) / 2
+	if nums[i] == target {
+		if i == 0 || nums[i-1] != target {
+			return i
+		} else {
+			return findFirst(nums, left, i-1, target)
+		}
+	} else if nums[i] > target {
+		return findFirst(nums, left, i-1, target)
+	} else {
+		return findFirst(nums, i+1, right, target)
+	}
+}
+
+func findLast(nums []int, left int, right int, target int) int {
+	if left > right {
+		return -1
+	}
+	i := (left + right) / 2
+	if nums[i] == target {
+		if i == len(nums)-1 || nums[i+1] != target {
+			return i
+		} else {
+			return findLast(nums, i+1, right, target)
+		}
+	} else if nums[i] > target {
+		return findLast(nums, left, i-1, target)
+	} else {
+		return findLast(nums, i+1, right, target)
+	}
+}
+
+func TestSearchRange(t *testing.T) {
+	nums := []int{5, 7, 7, 8, 8, 10}
+	target := 8
+	t.Log(searchRange(nums, target))
 }
