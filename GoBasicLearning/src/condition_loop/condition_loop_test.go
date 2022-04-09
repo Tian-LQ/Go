@@ -1,6 +1,7 @@
 package condition_loop
 
 import (
+	"fmt"
 	"sync"
 	"testing"
 )
@@ -43,5 +44,56 @@ func TestSwitchCaseCondition(t *testing.T) {
 		default:
 			t.Logf("%d: Unknown\n", i)
 		}
+	}
+}
+
+func TestSwitchCase1(t *testing.T) {
+	//value := [...]int8{0, 1, 2, 3, 4, 5, 6}
+	//switch 1 + 3 {
+	//case value[0], value[1]:
+	//	fmt.Println("0 or 1")
+	//case value[2], value[3]:
+	//	fmt.Println("2 or 3")
+	//case value[4], value[5], value[6]:
+	//	fmt.Println("4 or 5 or 6")
+	//}
+}
+
+func TestSwitchCase2(t *testing.T) {
+	value := [...]int8{0, 1, 2, 3, 4, 5, 6}
+	switch value[2] {
+	case 0, 1:
+		fmt.Println("0 or 1")
+	case 2, 3:
+		fmt.Println("2 or 3")
+	case 4, 5, 6:
+		fmt.Println("4 or 5 or 6")
+	}
+}
+
+func TestSwitchCase3(t *testing.T) {
+	// 绕过编译器
+	value := [...]int8{0, 1, 2, 3, 4, 5, 6}
+	switch value[2] {
+	case value[0], value[1], value[2]:
+		fmt.Println("0 or 1")
+	case value[2], value[3], value[4]:
+		fmt.Println("2 or 3")
+	case value[4], value[5], value[6]:
+		fmt.Println("4 or 5 or 6")
+	}
+}
+
+type myUInt16 uint16
+
+func TestTypeSwitchCase(t *testing.T) {
+	value6 := interface{}(byte(127))
+	switch t := value6.(type) {
+	case uint16, myUInt16:
+		fmt.Println("uint8 or uint16")
+	case byte:
+		fmt.Println("byte")
+	default:
+		fmt.Printf("unsupported type: %T\n", t)
 	}
 }

@@ -81,3 +81,29 @@ func TestSlice(t *testing.T) {
 	slice = append(slice, 5)
 	fmt.Printf("slice's address: %p, slice's len: %d, slice's cap: %d\n", slice, len(slice), cap(slice))
 }
+
+func TestForRangeArray(t *testing.T) {
+	array := [...]int{1, 2, 3, 4, 5, 6}
+	maxIndex := len(array) - 1
+	for i, e := range array {
+		if i == maxIndex {
+			array[0] += e
+		} else {
+			array[i+1] += e
+		}
+	}
+	fmt.Println(array)
+}
+
+func TestForRangeSlice(t *testing.T) {
+	slice := []int{1, 2, 3, 4, 5, 6}
+	maxIndex := len(slice) - 1
+	for i, e := range slice {
+		if i == maxIndex {
+			slice[0] += e
+		} else {
+			slice[i+1] += e
+		}
+	}
+	fmt.Println(slice)
+}
