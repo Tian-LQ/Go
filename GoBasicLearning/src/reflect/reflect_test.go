@@ -118,3 +118,9 @@ func TestFillNameAndAge(t *testing.T) {
 	}
 	t.Logf("c: %+v\n", *c)
 }
+
+func TestReflect(t *testing.T) {
+	e := &Employee{}
+	t.Log(reflect.TypeOf(e).Kind())
+	t.Log(reflect.TypeOf(e).Elem().Kind())
+}
