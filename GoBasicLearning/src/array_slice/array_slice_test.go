@@ -2,6 +2,7 @@ package array_slice
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -106,4 +107,17 @@ func TestForRangeSlice(t *testing.T) {
 		}
 	}
 	fmt.Println(slice)
+}
+
+func PrintfStringList(strs ...string) {
+	fmt.Println(reflect.TypeOf(strs))
+	fmt.Println(strs)
+}
+
+func PrintfStringListProxy(strs ...string) {
+	PrintfStringList(strs...)
+}
+
+func TestPrintfStringList(t *testing.T) {
+	PrintfStringListProxy("1", "2", "3")
 }

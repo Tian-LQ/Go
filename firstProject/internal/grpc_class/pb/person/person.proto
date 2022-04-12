@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package person;
+
+option go_package = "internal/grpc_class/pb/person;person";
+
+// 声明结构体的关键字: message
+message Person {
+  string name = 1;
+  int32 age = 2;
+  // 声明一个枚举(枚举类型需要有零值)
+
+  enum SEX {
+    // 当枚举内部出现相同枚举值时需要加上这个配置从而通过编译
+    option allow_alias = true;
+    MALE = 0;
+    MAN = 0;
+    FEMALE = 1;
+  }
+  SEX sex = 3;
+  // 声明一个切片
+  repeated string test = 4;
+  // 声明一个map(key只能为整数类型或string字符串类型)
+  map<string, string> test_map = 5;
+
+  oneof TestOneOf {
+    string one = 7;
+    string two = 8;
+    string three = 9;
+  }
+
+  // 禁用字段名及值(此时在结构体内的字段名称就不能选择test_string,并且无法使用5作为字段唯一标识值)
+  reserved "test_string";
+  reserved 6;
+}

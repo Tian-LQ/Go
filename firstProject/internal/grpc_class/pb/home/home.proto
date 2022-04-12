@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package home;
+
+option go_package = "internal/grpc_class/pb/home;home";
+
+import "person/person.proto";
+
+message Home {
+  repeated person.Person persons = 1;
+  message Visitor {
+    string name = 1;
+  }
+  Visitor visitor = 2;
+}
