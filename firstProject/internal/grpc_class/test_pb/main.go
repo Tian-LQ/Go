@@ -22,19 +22,18 @@ func main() {
 		return
 	}
 	fmt.Println(one)
-
 	switch p.TestOneOf.(type) {
 	case *person.Person_One:
 		fmt.Println("select case *person.Person_One [switch]")
 		one, _ := p.TestOneOf.(*person.Person_One)
-		fmt.Println(one.One)
+		fmt.Printf("type of p.TestOneof: %v, value of p.TestOneof: %+v\n", reflect.TypeOf(one), one)
 	case *person.Person_Two:
 		fmt.Println("select case *person.Person_Two [switch]")
 		two, _ := p.TestOneOf.(*person.Person_Two)
-		fmt.Println(two.Two)
+		fmt.Printf("type of p.TestOneof: %v, value of p.TestOneof: %+v\n", reflect.TypeOf(two), two)
 	case *person.Person_Three:
 		fmt.Println("select case *person.Person_Three [switch]")
 		three, _ := p.TestOneOf.(*person.Person_Three)
-		fmt.Println(three.Three)
+		fmt.Printf("type of p.TestOneof: %v, value of p.TestOneof: %+v\n", reflect.TypeOf(three), three)
 	}
 }

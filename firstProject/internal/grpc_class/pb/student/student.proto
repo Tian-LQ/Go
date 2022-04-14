@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package student;
+
+option go_package = "internal/grpc_class/pb/student;student";
+
+import "google/api/annotations.proto";
+
+message StudentReq {
+  string name = 1;
+  int32 age = 2;
+}
+
+message StudentRes {
+  string name = 1;
+  int32 age = 2;
+}
+
+service SearchService {
+  rpc Search(StudentReq) returns (StudentRes) {
+    option(google.api.http) = {
+      post:"/api/person",
+      body:"*"
+    };
+  };
+}
