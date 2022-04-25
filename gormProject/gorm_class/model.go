@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"gorm.io/gorm"
 )
-,
+
 type User struct {
 	gorm.Model
 	Name string `gorm:"default:Mr.T"`
@@ -147,20 +147,20 @@ func Transaction() {
 	GlobalDB.Transaction(func(tx *gorm.DB) error {
 		tx.Create(&User{
 			Name: "张三",
-			Age: 18,
+			Age:  18,
 		})
 		tx.Create(&User{
 			Name: "李四",
-			Age: 18,
+			Age:  18,
 		})
 		tx.Create(&User{
 			Name: "王五",
-			Age: 18,
+			Age:  18,
 		})
 		tx.Transaction(func(tx *gorm.DB) error {
 			tx.Create(&User{
 				Name: "刘备",
-				Age: 18,
+				Age:  18,
 			})
 			return nil
 		})
@@ -171,16 +171,16 @@ func Transaction() {
 	tx := GlobalDB.Begin()
 	tx.Create(&User{
 		Name: "张三",
-		Age: 18,
+		Age:  18,
 	})
 	tx.Create(&User{
 		Name: "李四",
-		Age: 18,
+		Age:  18,
 	})
 	tx.SavePoint("sp1")
 	tx.Create(&User{
 		Name: "王五",
-		Age: 18,
+		Age:  18,
 	})
 	tx.RollbackTo("sp1")
 	tx.Commit()
