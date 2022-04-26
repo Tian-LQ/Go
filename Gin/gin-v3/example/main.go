@@ -1,7 +1,7 @@
 package main
 
 import (
-	gin_v3 "Gin/gin-v3"
+	"Gin/gin-v3"
 	"net/http"
 )
 
