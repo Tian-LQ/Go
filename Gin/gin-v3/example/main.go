@@ -6,7 +6,8 @@ import (
 )
 
 func main() {
-	r := gin_v3.New()
+	var filterBuilder gin_v3.FilterBuilder = gin_v3.MetricFilterBuilder
+	r := gin_v3.New(filterBuilder)
 	r.GET("/", func(c *gin_v3.Context) {
 		c.HTML(http.StatusOK, "<h1>Hello Gee</h1>")
 	})
