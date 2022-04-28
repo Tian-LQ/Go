@@ -9,16 +9,16 @@ func main() {
 	var filterBuilder gin_v3.FilterBuilder = gin_v3.MetricFilterBuilder
 	r := gin_v3.New(filterBuilder)
 	r.GET("/", func(c *gin_v3.Context) {
-		c.HTML(http.StatusOK, "<h1>Hello Gee</h1>")
+		c.HTML(http.StatusOK, "<h1>Hello Gin</h1>")
 	})
 
 	r.GET("/hello", func(c *gin_v3.Context) {
-		// expect /hello?name=geektutu
+		// expect /hello?name=tianlq
 		c.String(http.StatusOK, "hello %s, you're at %s\n", c.Query("name"), c.Path)
 	})
 
 	r.GET("/hello/:name", func(c *gin_v3.Context) {
-		// expect /hello/geektutu
+		// expect /hello/tianlq
 		c.String(http.StatusOK, "hello %s, you're at %s\n", c.Param("name"), c.Path)
 	})
 

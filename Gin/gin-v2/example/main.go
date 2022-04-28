@@ -8,10 +8,10 @@ import (
 func main() {
 	r := gin_v2.New()
 	r.GET("/", func(c *gin_v2.Context) {
-		c.HTML(http.StatusOK, "<h1>Hello Gee</h1>")
+		c.HTML(http.StatusOK, "<h1>Hello Gin</h1>")
 	})
 	r.GET("/hello", func(c *gin_v2.Context) {
-		// expect /hello?name=geektutu
+		// expect /hello?name=tianlq
 		c.String(http.StatusOK, "hello %s, you're at %s\n", c.Query("name"), c.Path)
 	})
 
