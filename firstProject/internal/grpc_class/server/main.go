@@ -5,8 +5,8 @@ import (
 	hello_grpc "firstProject/internal/grpc_class/pb"
 	"flag"
 	"fmt"
-	"google.golang.org/grpc"
-	"net"
+	"os/exec"
+	"time"
 )
 
 var (
@@ -23,14 +23,20 @@ func (s *server) SayHello(ctx context.Context, req *hello_grpc.Req) (res *hello_
 }
 
 func main() {
-	flag.Parse()
-	l, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	//flag.Parse()
+	//l, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
+	//if err != nil {
+	//	panic(err)
+	//}
+	//// 注册服务
+	//s := grpc.NewServer()
+	//hello_grpc.RegisterHelloGRPCServer(s, &server{})
+	//// 建立监听
+	//s.Serve(l)
+	cmd := exec.Command("cmd", "/C start C:\\Users\\田磊泉\\Desktop\\Go_Learning_File\\面试干货指南.pdf")
+	err := cmd.Start()
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
-	// 注册服务
-	s := grpc.NewServer()
-	hello_grpc.RegisterHelloGRPCServer(s, &server{})
-	// 建立监听
-	s.Serve(l)
+	time.Sleep(time.Second * 5)
 }
