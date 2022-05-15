@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/go-redis/redis/v8"
+	"github.com/hhxsv5/go-redis-memory-analysis"
 )
 
 var client redis.UniversalClient
