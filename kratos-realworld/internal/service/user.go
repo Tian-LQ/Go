@@ -34,3 +34,11 @@ func (s *RealWorldService) Register(context context.Context, request *v1.Registe
 		},
 	}, nil
 }
+
+func (s *RealWorldService) UpdateUser(context context.Context, request *v1.UpdateUserRequest) (*v1.UserReply, error) {
+	return &v1.UserReply{}, nil
+}
+
+func (s *RealWorldService) GetProfile(context context.Context, request *v1.GetProfileRequest) (*v1.ProfileReply, error) {
+	return &v1.ProfileReply{}, nil
+}
