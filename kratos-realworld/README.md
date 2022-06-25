@@ -1,51 +1,14 @@
-# Kratos Project Template
+## Go进阶训练营学习感悟
 
-## Install Kratos
-```
-go install github.com/go-kratos/kratos/cmd/kratos/v2@latest
-```
-## Create a service
-```
-# Create a template project
-kratos new server
+时间过得很快，为期三个多月的Go进阶训练营终于结束了。最开始由于我是C++相关工作经验，对于Go语言这块并不是特别了解，因此特别担心会存在学习上的障碍，没办法跟得上大家的进度。但是实际学习中，发现有大明老师的基础Web框架课程的学习，以及包子老师推荐的《Go语言设计与实现》，我最开始的顾虑在学习的过程中便被打消了，只需要花上一周左右时间就可以补上语言基础上的不足。
 
-cd server
-# Add a proto template
-kratos proto add api/server/server.proto
-# Generate the proto code
-kratos proto client api/server/server.proto
-# Generate the source code of service by proto file
-kratos proto server api/server/server.proto -t internal/service
+紧接着在学习过程中，感受到了课程本身以围绕Go微服务框架的设计与使用展开各个方面的知识点讲解，如Go微服务工程项目结构，kratos微服务框架，工程化相关实践等等，同时也会穿插着常用的中间件的知识点(redis，mysql，kafka)，部分章节还会补充go语言的一些特性知识点，诸如第二周和三周的错误处理以及并发编程，都让我对Go语言的理解更加的全面，当时的学习状态非常充实，我印象比较深刻的是，每次看到我们的学习群里有同学提问，都会一遍又一遍的去看大家讨论的聊天记录，以及大家对本周视频课程当中的疑问点，老师的解答，生怕自己错过了重要的知识点。班班每周，甚至是每天都会提醒我们按时完成作业，督促我们学习。
 
-go generate ./...
-go build -o ./bin/ ./...
-./bin/server -conf ./configs
-```
-## Generate other auxiliary files by Makefile
-```
-# Download and update dependencies
-make init
-# Generate API files (include: pb.go, http, grpc, validate, swagger) by proto file
-make api
-# Generate all files
-make all
-```
-## Automated Initialization (wire)
-```
-# install wire
-go get github.com/google/wire/cmd/wire
+学习到了中期的时候，穿插了两周的设计课程，当时真的感叹毛大老师真的太牛了，干货满满。有这样的老师教学，并且与我们讨论，真的是太难得了。当然大明老师每周的答疑课程以及补充课程，同样对我也十分受用，有种接地气的感觉。
 
-# generate wire
-cd cmd/server
-wire
-```
+总的来说，对于这次训练营的学习还是非常满意的，课程的价值超出了我的想象，同样我觉得尤为重要的是，就是我们组建了学习交流群，可以一起构建学习交流的"社区"，这对我而言是非常有意义的。
 
-## Docker
-```bash
-# build
-docker build -t <your-docker-image-name> .
+当然还是会认为这门课程对于有微服务相关经验的同学会更加适合，如果没有的话学习上还是会相对吃力，因此对于Java开发的同学会是非常友好的一门课程。
 
-# run
-docker run --rm -p 8000:8000 -p 9000:9000 -v </path/to/your/configs>:/data/conf <your-docker-image-name>
-```
+希望能够在结营之后，继续巩固所学的知识，翻看毛大老师PPT后的reference，继续学习成长。
 
